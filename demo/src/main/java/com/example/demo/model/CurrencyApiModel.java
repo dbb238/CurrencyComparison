@@ -1,14 +1,27 @@
 package com.example.demo.model;
 
+import org.hibernate.validator.constraints.Length;
+
 public class CurrencyApiModel {
 
+	@Length(min = 3, max = 20)
 	public String code;
-     public String ch_name;
-     public String symbol;
-     public String rate;
-     public String description;
-     public String rate_float;
-     
+
+	@Length(max = 50)
+	public String ch_name;
+
+	@Length(max = 50)
+	public String symbol;
+
+	@Length(max = 50)
+	public String rate;
+
+	@Length(max = 250)
+	public String description;
+
+	@Length(max = 50)
+	public String rate_float;
+
 	public CurrencyApiModel(String code, String ch_name, String symbol, String rate, String description,
 			String rate_float) {
 		super();
@@ -20,5 +33,4 @@ public class CurrencyApiModel {
 		this.rate_float = rate_float;
 	}
 
-     
 }
