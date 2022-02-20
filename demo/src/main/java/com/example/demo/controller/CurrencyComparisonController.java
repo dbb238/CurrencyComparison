@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +39,7 @@ public class CurrencyComparisonController {
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody CurrencyApiModel req) {
+	public ResponseEntity<?> create(@Valid @RequestBody CurrencyApiModel req) {
 		String result = currencyComparisonService.create(req);
 		return RestResponse.ok().body(result).toResponseEntity();
 	}
@@ -47,9 +49,9 @@ public class CurrencyComparisonController {
 	 * @return
 	 */
 	@PutMapping
-	public ResponseEntity<?> edit(@RequestBody CurrencyApiModel req) {
-		String result = currencyComparisonService.edit(req);
-		return RestResponse.ok().body(result).toResponseEntity();
+	public ResponseEntity<?> edit(@Valid @RequestBody CurrencyApiModel req) {
+		currencyComparisonService.edit(req);
+		return RestResponse.ok().body(currencyComparisonService.select(req.code)).toResponseEntity();
 	}
 	/**
 	 * 貨幣中文對照表[刪除]功能
