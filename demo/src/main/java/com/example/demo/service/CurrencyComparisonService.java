@@ -51,11 +51,10 @@ public class CurrencyComparisonService {
 		CurrencyComparison currencyComparisonEnt = currencyComparisonRepository.findByCode(req.code);
 		if(currencyComparisonEnt != null)
 		{
-			return "The Code is duplication!";
+			return "[ERROR]The Code is duplication!";
 		}
 		
-		// 2. check input data
-		// 3. set data to db
+		// 2. set data to db
 		CurrencyComparison currencyComparisonNewEnt = new CurrencyComparison(req.code, req.ch_name, req.symbol, req.rate, req.description, req.rate_float, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
 		currencyComparisonRepository.save(currencyComparisonNewEnt);
 		
@@ -68,15 +67,16 @@ public class CurrencyComparisonService {
 	 * @return
 	 */
 	public String edit(CurrencyApiModel req) {
+		
 		// 1.check code
 		CurrencyComparison currencyComparisonEnt = currencyComparisonRepository.findByCode(req.code);
 		if(currencyComparisonEnt == null)
 		{
-			return "not find this code!";
+			return "[ERROR]not find this code!";
 		}
 		
-		// 2. check input data
-		// 3. set data to db
+
+		// 2. set data to db
 		currencyComparisonEnt.setCode(req.code);
 		currencyComparisonEnt.setCh_name(req.ch_name);
 		currencyComparisonEnt.setSymbol(req.symbol);
@@ -98,12 +98,12 @@ public class CurrencyComparisonService {
 		CurrencyComparison currencyComparisonEnt = currencyComparisonRepository.findByCode(req.code);
 		if(currencyComparisonEnt == null)
 		{
-			return "not find this code!";
+			return "[ERROR]not find this code!";
 		}
 		
 		// 2. delete this code
-
 		currencyComparisonRepository.delete(currencyComparisonEnt);
 		return "OK";
 	}
+	
 }
